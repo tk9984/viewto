@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- site metas -->
+      <title>Built Better</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="css/owl.carousel.min.css">
+      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <style>
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border-bottom: 1px solid #ccc;
+    opacity: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+}
+
+/* Sidebar menu */
+.side-menu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 250px;
+    height: calc(100% - 60px); /* ปรับให้ตรงกับความสูง navbar */
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    z-index: 998;
+    padding-top: 20px;
+}
+
+/* Sidebar menu items */
+.side-menu ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.side-menu li {
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.side-menu li:hover {
+    background-color: #5d7085;
+    color: #fff;
+}
+
+/* Active state for sidebar menu item */
+.side-menu li.active {
+    background-color: #5d7085;
+    color: #fff;
+}
+
+/* Content area */
+.content {
+    margin-left: 270px;
+    margin-top: 80px; /* ปรับระยะห่างจาก navbar */
+    padding: 20px;
+    box-sizing: border-box;
+    height: calc(100vh - 120px); /* ปรับให้เนื้อหาพอดีกับขนาดหน้าจอ */
+    overflow-y: auto;
+}
+
+/* Content sections */
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.content h2 {
+    margin-top: 0;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+
+/* Navbar responsive adjustments */
+.navbar-nav .nav-link {
+    font-size: 14px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Adjustments for smaller screens (responsive) */
+@media (max-width: 768px) {
+    .navbar {
+        position: relative; /* ทำให้ navbar ไม่ fixed เมื่อหน้าจอเล็ก */
+    }
+    
+    .side-menu {
+        position: relative; /* เปลี่ยนเป็น relative สำหรับหน้าจอเล็ก */
+        width: 100%;
+        height: auto;
+        top: 0;
+    }
+
+    .content {
+        margin-left: 0;
+        margin-top: 70px;
+        max-width: 100%;
+    }
+
+    /* ปรับขนาดตัวอักษรในแถบเมนูเมื่อหน้าจอเล็ก */
+    .side-menu li {
+        font-size: 14px;
+    }
+}
+
+/* Sub-menu styles */
+/* สไตล์สำหรับเมนูย่อย */
+.sub-menu {
+   display: none; /* ซ่อนเมนูย่อย */
+   list-style-type: none;
+   padding-left: 20px;
+}
+
+.sub-menu.show {
+   display: block; /* แสดงเมนูย่อย */
+}
+
+/* เพิ่มการเปลี่ยนสีและขนาดของเมนูย่อยให้เด่น */
+.sub-menu li {
+    padding: 8px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.sub-menu li:hover {
+    background-color: #e9ecef; /* สีเมื่อเมาส์อยู่เหนือเมนูย่อย */
+}
+
+/* การจัดการสัญลักษณ์ */
+.menu-icon {
+    font-size: 18px;
+    margin-left: 10px;
+    transition: transform 0.3s ease; /* เพิ่มการหมุน */
+}
+
+/* เมื่อเมนูย่อยถูกเปิด ไอคอนจะหมุน */
+.sub-menu.show + span .menu-icon {
+    transform: rotate(180deg);
+}
+
+/* เมื่อเมนูย่อยยังไม่เปิด */
+.side-menu li span {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.side-menu li span:hover {
+    color: #ffffff; /* เปลี่ยนสีเมื่อเมาส์อยู่เหนือ */
+}
+
+/* เพิ่มขนาดตัวอักษรในตาราง */
+#employeeTable, #performanceTable {
+    font-size: 16px; /* ปรับขนาดตัวอักษรตามที่ต้องการ */
+}
+
+/* ปรับขนาดตัวอักษรของหัวตาราง (th) */
+#employeeTable th, #performanceTable th {
+    font-size: 16px; /* ปรับขนาดตัวอักษรหัวตาราง */
+}
+
+/* ปรับขนาดตัวอักษรของเซลล์ในตาราง (td) */
+#employeeTable td, #performanceTable td {
+    font-size: 16px; /* ปรับขนาดตัวอักษรในเซลล์ */
+}
+
+.floating-buttons {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        bottom: 50px; /* ปรับระยะห่างจากปุ่ม */
+        right: 0;
+        background-color: #007bff;
+        min-width: 160px;
+        z-index: 1;
+        border-radius: 5px;
+    }
+
+    .dropdown-content a {
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-size: 18px;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #0056b3;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .floating-buttons button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 15px;
+        font-size: 18px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
+    }
+
+    .floating-buttons button:hover {
+        background-color: #0056b3;
+    }
+
+    .floating-buttons button i {
+        font-size: 20px;
+    }
+    
+</style>
+
+
+
+   </head>
+   <body>
+      <!-- header section start -->
+      <div class="container-fluid">
+         <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+             </button>
+             
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav mr-auto">
+                  <li class="nav-item"><a class="nav-link" href="index.html">หน้าแรก</a></li>
+                  <li class="nav-item"><a class="nav-link" href="equipment.html">ระบบการจัดการเครื่องมือ-อุปกรณ์</a></li>
+                  <li class="nav-item"><a class="nav-link" href="operations.html">การปฏิบัติงาน</a></li>
+                  <li class="nav-item"><a class="nav-link" href="stock.html">ระบบการจัดการสต็อก</a></li>
+                  <li class="nav-item"><a class="nav-link" href="record.html">บันทึกการทำงานในแปลง</a></li>
+                  <li class="nav-item"><a class="nav-link" href="collection.html">การเก็บข้อมูลงานทดลองวิจัย</a></li>
+               </ul>
+               <div class="search_icon">
+                  <ul>
+                     <li><a href="#">LOGIN</a></li>
+                  </ul>
+               </div>
+               
+            </div>
+           
+         </nav>
+         
+      </div>
+
+      <!-- Sidebar Menu -->
+<!-- ตรง Sidebar Menu ให้แน่ใจว่าใส่ data-section ไว้แล้ว -->
+<div class="side-menu">
+   <ul>
+     <li data-section="worker" onclick="showContent('worker')">การทำงานของแรงงานในแปลง</li>
+     <li data-section="tractor" onclick="showContent('tractor')">การทำงานของรถไถ รถเครน (รถทุกประเภท)</li>
+     
+     <!-- เพิ่มเมนูย่อย -->
+     <!-- เมนูย่อยที่จะแสดงโดยอัตโนมัติ -->
+<!-- เมนูย่อยที่จะแสดงโดยอัตโนมัติ -->
+<li>
+   <span onclick="toggleSubMenu(this)">การปฏิบัติงานของพนักงานแบบ Online <span class="menu-icon">▼</span></span>
+   <ul class="sub-menu show"> <!-- เพิ่ม class "show" ที่นี่ -->
+     <li data-section="online-employee" onclick="showContent('online-employee')">รายชื่อพนักงาน</li>
+     <li data-section="online-performance" onclick="showContent('online-performance')">ผลการปฏิบัติงาน</li>
+     <!-- เพิ่มเมนูย่อยใหม่เพื่อแสดงกราฟ -->
+     <li data-section="online-graph" onclick="showContent('online-graph')">กราฟผลการปฏิบัติงาน</li>
+   </ul>
+</li>
+
+
+     
+   </ul>
+</div>
+
+       
+
+      <!-- Content Area -->
+      <div class="content">
+         <div class="content-section" id="worker">
+            <h2>การทำงานของแรงงานในแปลง</h2>
+            <p>ข้อมูลเกี่ยวกับการทำงานของแรงงานในแปลง...</p>
+         </div>
+         
+         <div class="content-section" id="tractor">
+            <h2>การทำงานของรถไถ รถเครน (รถทุกประเภท)</h2>
+            <p>ข้อมูลเกี่ยวกับการทำงานของรถไถ รถเครน...</p>
+         </div>
+         <button onclick="exportToPDF()" 
+    style="margin-bottom: 20px; padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+    Export รายงานเป็น PDF  </button>
+         <div class="content-section" id="online-employee">
+            
+            <h2>รายชื่อพนักงาน</h2>
+            
+            <table id="employeeTable" class="table">
+                <thead>
+                    <tr>
+                        <th>ลำดับ</th>
+                        <th>ชื่อ - นามสกุล</th>
+                        <th>รายละเอียดงานที่ปฏิบัติ</th>
+                        <th>อัตราการจ้าง</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ข้อมูลจะถูกแทรกที่นี่ -->
+                </tbody>
+            </table>
+            <div class="floating-buttons">
+               <div class="dropdown">
+                   <button id="menuBtn">
+                       <i class="fa fa-cogs"></i>
+                   </button>
+                   <div class="dropdown-content">
+                     <a href="https://www.appsheet.com/start/28b89373-f619-4080-af82-e41a88d420dd#view=%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%9E%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%87%E0%B8%B2%E0%B8%99_Form" target="_blank">เพิ่มรายชื่อพนักงาน</a>
+                     
+                   </div>
+               </div>
+           </div>
+        </div>
+        
+        <div class="content-section" id="online-performance">
+            <h2>ผลการปฏิบัติงาน</h2>
+            
+            <table id="performanceTable" class="table">
+                <thead>
+                    <tr>
+                        <th>ลำดับ</th>
+                        <th>ชื่อ - นามสกุล</th>
+                        <th>รายละเอียดงานที่ปฏิบัติ</th>
+                        <th>อัตราการจ้าง</th>
+                        <th>ผลการปฏิบัติงาน (วัน)</th>
+                        <th>ผลการปฏิบัติงาน (กระสอบ)</th>
+                        <th>เป็นเงิน/บาท</th>
+                        <th>ภาษี 3%</th>
+                        <th>จำนวนเงินรวมภาษี</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- ข้อมูลจะถูกแทรกที่นี่ -->
+                </tbody>
+            </table>
+            <!-- ปรับเปลี่ยนที่ปุ่ม "ดูข้อมูลทั้งหมด" ให้เปิดเป็นป็อปอัพ -->
+<div class="floating-buttons">
+   <div class="dropdown">
+       <button id="menuBtn">
+           <i class="fa fa-cogs"></i>
+       </button>
+       <div class="dropdown-content">
+           <!-- เปลี่ยนให้เป็นป็อปอัพที่เปิดใน iframe -->
+           <a href="#" onclick="openAppSheetPopUp()">ดูข้อมูลทั้งหมด</a>
+           <a href="https://www.appsheet.com/start/28b89373-f619-4080-af82-e41a88d420dd?platform=desktop#appName=%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%8F%E0%B8%B4%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%B4%E0%B8%87%E0%B8%B2%E0%B8%992-238198049&vss=H4sIAAAAAAAAA7WRPQ7CMAyF7-K5J8iKGBCCBcRCGELjShX9QSTlR1UGJhA3YGGAmQEWzG18FNICYmWA0fbT9_zsEuYxLnpWhRMQw_JTtXEFAkoJ_dUUJQgJjTyzszyREEjoqvTZZDoxXZmOTDumG9-3TGemA9Oe6cK0ZtrUgr0EB24UvB0sGhDlrw3EvxMEEGvMbBzFOKvcKrZ3eZH9uOL6xvdUcAGkhVXjBOuzVFSDCYYWtX_JyDkviPKwMKgHPttfMplW1lxOVaY7ufYbRCox6B4QOTriHAIAAA==&view=%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%9E%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%87%E0%B8%B2%E0%B8%99" id="deleteBtn">ลบ</a>
+       </div>
+   </div>
+</div>
+
+
+        </div>
+        
+        <div class="content-section" id="online-graph">
+         <h2>กราฟผลการปฏิบัติงาน</h2>
+         <iframe width="1000" height="750" src="https://lookerstudio.google.com/embed/reporting/bcd97fc7-cdd0-4dcc-a71f-d4fa47ccf2aa/page/p_xtaoml7vrd" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+         
+     </div>
+     
+      
+      </div>
+      
+
+      <!-- JavaScript -->
+      <!-- JavaScript -->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/owl.carousel.min.js"></script>
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+     
+
+      
+
+      <script>
+function toggleSubMenu(span) {
+    const subMenu = span.nextElementSibling;
+    const icon = span.querySelector('.menu-icon'); // หาตัวเลือกของไอคอน
+
+    if (subMenu) {
+        subMenu.classList.toggle('show'); // ซ่อน/แสดงเมนูย่อย
+        
+        // เปลี่ยนสัญลักษณ์จาก ▼ เป็น ▲
+        if (subMenu.classList.contains('show')) {
+            icon.textContent = '▲'; // เปลี่ยนเป็น ▲
+        } else {
+            icon.textContent = '▼'; // เปลี่ยนเป็น ▼
+        }
+    }
+}
+         </script>
+         <script>
+         function fetchGoogleSheetData() {
+    const sheetId = '1rL79mdZD1UhYPs34moqIbrFtz11Jljir1O-F_1j3jFo';
+    
+    // ดึงข้อมูลจาก "รายชื่อพนักงาน"
+    const employeeSheetName = 'รายชื่อพนักงาน';
+    const employeeUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?sheet=${encodeURIComponent(employeeSheetName)}`;
+    
+    fetch(employeeUrl)
+        .then(r => r.text())
+        .then(data => {
+            const json = JSON.parse(data.substring(47).slice(0, -2));
+            const rows = json.table.rows;
+            const tbody = document.querySelector('#employeeTable tbody');
+            
+            // ลบข้อมูลที่มีอยู่ใน tbody ออกก่อน
+            tbody.innerHTML = '';
+            
+            rows.forEach(row => {
+                if (row.c && row.c.some(c => c && c.v)) {
+                    const tr = document.createElement('tr');
+                    for (let i = 0; i < 4; i++) { // รายชื่อพนักงานมี 4 คอลัมน์
+                        const td = document.createElement('td');
+                        td.textContent = row.c[i]?.v || '';
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching Google Sheet data for employee:', error);
+        });
+    
+    // ดึงข้อมูลจาก "ผลการปฏิบัติงาน"
+    const performanceSheetName = 'ผลการปฏิบัติงาน';
+    const performanceUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?sheet=${encodeURIComponent(performanceSheetName)}`;
+    
+    fetch(performanceUrl)
+        .then(r => r.text())
+        .then(data => {
+            const json = JSON.parse(data.substring(47).slice(0, -2));
+            const rows = json.table.rows;
+            const tbody = document.querySelector('#performanceTable tbody');
+            
+            // ลบข้อมูลที่มีอยู่ใน tbody ออกก่อน
+            tbody.innerHTML = '';
+            
+            rows.forEach(row => {
+                if (row.c && row.c.some(c => c && c.v)) {
+                    const tr = document.createElement('tr');
+                    for (let i = 0; i < 9; i++) { // ผลการปฏิบัติงานมี 9 คอลัมน์
+                        const td = document.createElement('td');
+                        td.textContent = row.c[i]?.v || '';
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching Google Sheet data for performance:', error);
+        });
+}
+
+function showContent(sectionId) {
+    document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(sectionId).classList.add('active');
+
+    document.querySelectorAll('.side-menu li, .side-menu li li').forEach(li => li.classList.remove('active'));
+
+    const li = document.querySelector(`.side-menu li[data-section="${sectionId}"], .side-menu .sub-menu li[data-section="${sectionId}"]`);
+    if (li) li.classList.add('active');
+
+    // บันทึกสถานะของหน้าที่เลือกใน sessionStorage
+    sessionStorage.setItem('currentSection', sectionId);
+
+    if (sectionId === 'online-employee' && !window.employeesLoaded) {
+        fetchGoogleSheetData(); // ดึงข้อมูลทั้ง 2 ส่วน
+        window.employeesLoaded = true;
+    }
+    if (sectionId === 'online-performance' && !window.performanceLoaded) {
+        fetchGoogleSheetData(); // ดึงข้อมูลทั้ง 2 ส่วน
+        window.performanceLoaded = true;
+    }
+}
+document.addEventListener('DOMContentLoaded', function () {
+    // ตรวจสอบสถานะของหน้าที่บันทึกไว้ใน sessionStorage
+    const currentSection = sessionStorage.getItem('currentSection');
+    if (currentSection) {
+        showContent(currentSection); // แสดงหน้าที่ถูกเลือกไว้
+    } else {
+        showContent('worker'); // ถ้าไม่มีการบันทึก ให้แสดงหน้าเริ่มต้น
+    }
+});
+function openAppSheetPopUp() {
+    const url = "https://www.appsheet.com/start/28b89373-f619-4080-af82-e41a88d420dd#view=%E0%B8%9C%E0%B8%A5%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%8F%E0%B8%B4%E0%B8%9A%E0%B8%B1%E0%B8%95%E0%B8%B4%E0%B8%87%E0%B8%B2%E0%B8%99";
+    window.open(url, "_blank", "width=1200,height=800");
+}
+            </script>
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+      <script>
+      function exportToPDF() {
+          var element = document.getElementById('employeeTable');
+          var opt = {
+            margin:       0.5,
+            filename:     'รายชื่อพนักงาน.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+          };
+          html2pdf().from(element).set(opt).save();
+      }
+      </script>
+   </body>
+</html>

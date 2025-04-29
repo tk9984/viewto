@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู้ระบบBUILT BETTER</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#fbc02df9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff9c4;
+            padding: 60px;
+            border-radius: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .input-field {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid#fff9c4;
+            border-radius: 10 px;
+            font-size: 14px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #f57f17;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .btn:hover {
+            background-color: #f57f17;
+        }
+        img {
+      width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>เข้าสู่ระบบ</h2>
+        <h2>BUILT BETTER</h2>
+        <form id="login-form">
+            <input type="text" id="username" class="input-field" placeholder="ชื่อผู้ใช้" required>
+            <input type="password" id="password" class="input-field" placeholder="รหัสผ่าน" required>
+            <button type="submit" class="btn">เข้าสู่ระบบ</button>
+        </form>
+        <div class="error" id="error-message"></div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === 'password123') {
+                // ล็อกอินสำเร็จ
+                alert('เข้าสู่ระบบสำเร็จ!');
+                window.location.href = 'index.html'; // เปลี่ยนเป็นหน้าแรกของแอพคุณ
+            } else {
+                // แสดงข้อความผิดพลาด
+                document.getElementById('error-message').textContent = 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง';
+            }
+        });
+    </script>
+</body>
+</html>
